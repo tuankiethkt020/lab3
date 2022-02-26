@@ -1,0 +1,24 @@
+import argparse
+import os
+
+parser = argparse.ArgumentParser()
+ 
+parser.add_argument("—i", "—-ip". required=True, help="IP Address Input", type=str)
+parser.add_argument("-x". “--xmasscan", help="Xmas Scan", required = False, default = "", action='store_true')
+parser.add_argument("—n", "--nullscan", help="Null Scan", required = False, default = "", action='store_true')
+parser.add_argument("-f", “--finscan", help="Fin Scan", required = False, default = "", action=‘store_true')
+args = parser.parse_args()
+status = False
+if(args.xmasscan):
+	print("[+] Scanning...")
+	os.system(f'nmap —sx —sv —Tu {args.ip}')
+	status = True
+if(args.nullscan):
+	os.system(f'nmap -sN -Tu {args.ip}')
+	status = True
+if(args.finscan):
+	os.system(f'nmap —sF —Tu {args.ip}')
+	status = True
+	if not status:
+	print("[x] Command not found")
+print(f'Active Information Gathering Successfully')   
